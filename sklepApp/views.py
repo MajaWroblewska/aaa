@@ -7,7 +7,8 @@ from sklepApp.models import Produkt
 from sklepApp.forms import ProduktForm
 
 
-#--------------------------------------------------------------------------class ProduktView(View):
+#--------------------------------------------------------------------------
+class ProduktView(View):
     def get(self,request):
         return render(request,
                       template_name='produkt.html',
