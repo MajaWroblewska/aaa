@@ -22,7 +22,7 @@ class Produkt(models.Model):
     data_modyfikacji= models.DateTimeField(auto_now=True) #przy zapisie
 
     def __str__(self):
-        return f'{self.nazwa} : img={self.zdjecie} : stan={self.ilosc_w_magazynie} : cena= {self.cena} : data dod/mod= {self.data_dodania}/{self.data_modyfikacji}'
+        return f'{self.nazwa} : img={self.zdjecie} : stan={self.ilosc_w_magazynie} : cena= {self.cena}'# : data dod/mod= {self.data_dodania}/{self.data_modyfikacji}'
 #-------------------------------------------------------------------------------
 
 class Email(models.Model):

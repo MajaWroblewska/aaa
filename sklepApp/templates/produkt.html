@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Produkty</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+<h2>Produkty:</h2>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>NAZWA</th>
+            <th>KATEGORIA</th>
+            <th>OPIS</th>
+            <th>ZDJECIE</th>
+            <th>ILOŚĆ</th>
+            <th>CENA</th>
+            <th>DATA_MODYFIKACJI</th>
+            <th>DATA_DODANIA</th>
+            <th>wybór</th>
+        </tr>
+        <tr>
+            {% for produkt in produkty %}
+            <td> {{ produkt.id }}</td>
+            <td> {{ produkt.nazwa }}</td>
+            <td> {{ produkt.kategoria }}</td>
+            <td> {{ produkt.opis }}</td>
+            <td> {{ produkt.zdjecie }}</td>
+            <td> {{ produkt.ilosc_w_magazynie }}</td>
+            <td> {{ produkt.cena }}</td>
+            <td> {{ produkt.data_modyfikacji }}</td>
+            <td> {{ produkt.data_dodania }}</td>
+            <td> <button type="submit" >dodaj do koszyka</button> </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+{% endblock %}
+
+
+</body>
+</html>
