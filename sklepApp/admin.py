@@ -9,9 +9,9 @@ from sklepApp.models import Koszyk_login, Koszyk_logout
 # admin.site.register(Adres)
 # admin.site.register(User)
 # admin.site.register(Email)
+# admin.site.register(Koszyk_logout)
+# admin.site.register(Koszyk_login)
 
-admin.site.register(Koszyk_login)
-admin.site.register(Koszyk_logout)
 
 @admin.register(Kategoria)
 class KategoriaAdmin(admin.ModelAdmin):
@@ -42,6 +42,16 @@ class UserAdmin(admin.ModelAdmin):
 class EmailAdmin(admin.ModelAdmin):
     list_display = ['id', 'email']
     list_filter = ['email']
+
+
+@admin.register(Koszyk_logout)
+class Koszyk_logoutAdmin(admin.ModelAdmin):
+    list_display = ['id', 'nr_zamowienia',]
+
+
+@admin.register(Koszyk_login)
+class Koszyk_logoutAdmin(admin.ModelAdmin):
+    list_display = ['id', 'nr_zamowienia','user',]
 
 
 
