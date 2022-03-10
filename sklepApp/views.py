@@ -67,5 +67,7 @@ class ProduktDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'produkt_delete_form.html'
     model = Produkt
     success_url = reverse_lazy('produkt')
+
+class
 #--------------------------------------------------------------------------
 #autoryzacja + autentykacja + wybów do update i delete
