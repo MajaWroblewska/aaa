@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from sklepApp.views import ProduktView, ProduktCreateView, ProduktUpdateView, ProduktDeleteView, ProduktSelectUpdateView
+from sklepApp.views import ProduktView, ProduktCreateView, ProduktUpdateView, ProduktDeleteView, ProduktSelectUpdateView, ProduktSelectDeleteView
 from sklepApp.views import MojeLogwanie
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
     path('produkt/update/', ProduktSelectUpdateView.as_view(), name='select_produkt_update'),
 
     path('produkt/delete/<pk>', ProduktDeleteView.as_view(), name='produkt_delete'),
+    path('produkt/delete/', ProduktSelectDeleteView.as_view(), name='select_produkt_delete'),
 
 
 

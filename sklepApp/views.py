@@ -7,7 +7,8 @@ from django.views.generic import View, FormView, UpdateView, DeleteView
 
 # Create your views here.
 from sklepApp.models import Produkt
-from sklepApp.forms import ProduktForm, ProduktSelectUpdateForm
+from sklepApp.forms import ProduktForm, ProduktSelectForm
+
 
 #--------------------------------------------------------------------------
 class MojeLogwanie(LoginView):
@@ -49,14 +50,14 @@ class ProduktUpdateView(LoginRequiredMixin, UpdateView):
 
 class ProduktSelectUpdateView(LoginRequiredMixin, FormView):
     template_name = 'produkt_select_form.html'
-    form_class = ProduktSelectUpdateForm
+    form_class = ProduktSelectForm
     success_url = reverse_lazy('produkt')
 
     def form_valid(self, form):
         result = super().form_valid(form)
 
         moje_produkty = form.cleaned_data   #to dict o key='produkt1' z klasy formularza
-        id_produkt = moje_produkty['produkt1'].id
+        id_produkt = moje_produkty['produkty'].id
         # print(id_produkt)
 
         response = redirect('produkt_update', pk=id_produkt)    #przekierowanie do name url i przekazanie zmiennek <pk>
@@ -68,6 +69,21 @@ class ProduktDeleteView(LoginRequiredMixin, DeleteView):
     model = Produkt
     success_url = reverse_lazy('produkt')
 
-class
+class ProduktSelectDeleteView(FormView):
+    template_name = 'produkt_select_form.html'
+    form_class = ProduktSelectForm
+    success_url = reverse_lazy('produkt')
+
+    def form_valid(self, form):
+        # result= super().form_valid(form) #! poniżej ok !
+        result= super(ProduktSelectDeleteView, self).form_valid(form)
+        moje_produkty = form.cleaned_data
+
+        id_produkt = moje_produkty['produkty'].id
+        odp = redirect('produkt_delete', pk=id_produkt)
+
+        return odp
+
+
 #--------------------------------------------------------------------------
 #autoryzacja + autentykacja + wybów do update i delete
