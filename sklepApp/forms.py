@@ -26,3 +26,6 @@ class ProduktForm(forms.ModelForm):
     # data_modyfikacji = forms.DateTimeField()
 
 
+class ProduktSelectUpdateForm(forms.Form):
+    produkt1= forms.ModelChoiceField(queryset=Produkt.objects)
+

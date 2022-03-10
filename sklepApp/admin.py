@@ -26,6 +26,7 @@ class ProduktAdmin(admin.ModelAdmin):
     list_filter = ('kategoria', 'ilosc_w_magazynie','cena','nazwa' )
     search_fields = ('kategoria__nazwa','nazwa',)
     ordering = ['nazwa','id']
+    list_editable = ['cena', 'ilosc_w_magazynie']
 
 @admin.register(Adres)
 class AdresAdmin(admin.ModelAdmin):
