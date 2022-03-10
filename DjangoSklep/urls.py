@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from sklepApp.views import ProduktView, ProduktCreateView, ProduktUpdateView, ProduktDeleteView, ProduktSelectUpdateView
-# from sklepApp.views import
+from sklepApp.views import MojeLogwanie
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/login/', MojeLogwanie.as_view(), name='login'),
 
     path('produkt/', ProduktView.as_view(), name='produkt'),
     path('produkt/create', ProduktCreateView.as_view(), name='produkt_create'),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('produkt/update/', ProduktSelectUpdateView.as_view(), name='select_produkt_update'),
 
     path('produkt/delete/<pk>', ProduktDeleteView.as_view(), name='produkt_delete'),
+
 
 
 

@@ -1,3 +1,6 @@
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, FormView, UpdateView, DeleteView
@@ -6,6 +9,9 @@ from django.views.generic import View, FormView, UpdateView, DeleteView
 from sklepApp.models import Produkt
 from sklepApp.forms import ProduktForm, ProduktSelectUpdateForm
 
+#--------------------------------------------------------------------------
+class MojeLogwanie(LoginView):
+    template_name = 'login.html'
 
 #--------------------------------------------------------------------------
 class ProduktView(View):
@@ -15,7 +21,7 @@ class ProduktView(View):
                       context={'produkty': Produkt.objects.all()},
                       )
 
-class ProduktCreateView(FormView):
+class ProduktCreateView(LoginRequiredMixin, FormView):
     template_name = 'produkt_form.html'
     form_class = ProduktForm
     success_url = reverse_lazy('produkt_create')
@@ -34,14 +40,14 @@ class ProduktCreateView(FormView):
                                )
         return result
 
-class ProduktUpdateView(UpdateView):
+class ProduktUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'produkt_form.html'
     model = Produkt
     form_class = ProduktForm
     success_url = reverse_lazy('produkt')
 
 
-class ProduktSelectUpdateView(FormView):
+class ProduktSelectUpdateView(LoginRequiredMixin, FormView):
     template_name = 'produkt_select_form.html'
     form_class = ProduktSelectUpdateForm
     success_url = reverse_lazy('produkt')
@@ -49,26 +55,15 @@ class ProduktSelectUpdateView(FormView):
     def form_valid(self, form):
         result = super().form_valid(form)
 
-        moje_produkty = form.cleaned_data
-
-        # print(moje_produkty)
-        # print(moje_produkty['produkt1'])  #'produkt1 to pole z forms.py w class ProduktSelectUpdateForm
-        # print(dir(moje_produkty['produkt1']))
-        # print(moje_produkty['produkt1'].id)
-
+        moje_produkty = form.cleaned_data   #to dict o key='produkt1' z klasy formularza
         id_produkt = moje_produkty['produkt1'].id
         # print(id_produkt)
 
-        response = redirect('produkt_update', pk=id_produkt)
-
-        # return result
+        response = redirect('produkt_update', pk=id_produkt)    #przekierowanie do name url i przekazanie zmiennek <pk>
         return response
 
 
-
-
-#-#-##-#-#-#-#--#-#-#-##-#--##--#-##--#-#-#
-class ProduktDeleteView(DeleteView):
+class ProduktDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'produkt_delete_form.html'
     model = Produkt
     success_url = reverse_lazy('produkt')
