@@ -15,7 +15,7 @@ class Produkt(models.Model):
     nazwa= models.CharField(max_length=200)
     kategoria= models.ForeignKey(Kategoria, on_delete=models.CASCADE)
     opis= models.TextField(default='opis_domyślny')
-    zdjecie= models.ImageField(upload_to ='moja_sciezka', default='domyslna_sciezka', null=True)
+    zdjecie= models.ImageField(upload_to ='moja_sciezka/', default='domyslna_sciezka', null=True)
     ilosc_w_magazynie= models.IntegerField(default=0)
     cena= models.DecimalField(max_digits=7, decimal_places=2, default=1.00)
     data_dodania= models.DateTimeField(auto_now_add=True) #podczas tworzenia

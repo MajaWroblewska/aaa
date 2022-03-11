@@ -32,12 +32,13 @@
                 <td> {{ produkt.cena }}</td>
                 <td> {{ produkt.data_modyfikacji }}</td>
                 <td> {{ produkt.data_dodania }}</td>
-                <td> <button type="submit" class="zatwierdz">dodaj do koszyka</button> </td>
+                <td> <button type="submit" class="dodaj">dodaj do koszyka</button> </td>
             </tr>
             {% endfor %}
+            <tr>
+                <td colspan="10" style="text-align:right" > <input type="submit" class="dodaj" value="Dodaj nowy produkt"></td>
+            </tr>
         </table>
-
-
     {% endblock %}
 
 

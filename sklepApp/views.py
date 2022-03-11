@@ -1,5 +1,5 @@
 from django.contrib.auth.views import LoginView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -8,13 +8,13 @@ from django.views.generic import View, FormView, UpdateView, DeleteView
 # Create your views here.
 from sklepApp.models import Produkt
 from sklepApp.forms import ProduktForm, ProduktSelectForm
+# from sklepApp.models import Kategoria
 
-
-#--------------------------------------------------------------------------
+#---------------------------------LOGOWANIE--------------------------------
 class MojeLogwanie(LoginView):
     template_name = 'login.html'
 
-#--------------------------------------------------------------------------
+#---------------------------------PRODUKT----------------------------------
 class ProduktView(View):
     def get(self,request):
         return render(request,
@@ -22,10 +22,12 @@ class ProduktView(View):
                       context={'produkty': Produkt.objects.all()},
                       )
 
+# class ProduktCreateView(PermissionRequiredMixin, LoginRequiredMixin, FormView):
 class ProduktCreateView(LoginRequiredMixin, FormView):
     template_name = 'produkt_form.html'
     form_class = ProduktForm
     success_url = reverse_lazy('produkt_create')
+    # permission_required = 'sklepApp.add_produkt'
 
     def form_valid(self, form):
         result= super().form_valid(form)
@@ -41,17 +43,22 @@ class ProduktCreateView(LoginRequiredMixin, FormView):
                                )
         return result
 
+# class ProduktUpdateView(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
 class ProduktUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'produkt_form.html'
     model = Produkt
     form_class = ProduktForm
     success_url = reverse_lazy('produkt')
+    permission_required = 'sklepApp.change_produkt'
 
 
+# class ProduktSelectUpdateView(PermissionRequiredMixin, LoginRequiredMixin, FormView):
 class ProduktSelectUpdateView(LoginRequiredMixin, FormView):
     template_name = 'produkt_select_form.html'
     form_class = ProduktSelectForm
     success_url = reverse_lazy('produkt')
+    permission_required = 'sklepApp.change_produkt'
+
 
     def form_valid(self, form):
         result = super().form_valid(form)
@@ -64,15 +71,20 @@ class ProduktSelectUpdateView(LoginRequiredMixin, FormView):
         return response
 
 
+# class ProduktDeleteView(PermissionRequiredMixin, LoginRequiredMixin, DeleteView):
 class ProduktDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'produkt_delete_form.html'
     model = Produkt
     success_url = reverse_lazy('produkt')
+    permission_required = 'slepApp.delete_produkt'
 
-class ProduktSelectDeleteView(FormView):
+
+# class ProduktSelectDeleteView(PermissionRequiredMixin, LoginRequiredMixin, FormView):
+class ProduktSelectDeleteView(LoginRequiredMixin, FormView):
     template_name = 'produkt_select_form.html'
     form_class = ProduktSelectForm
     success_url = reverse_lazy('produkt')
+    permission_required = 'sklepApp.delete_produkt'
 
     def form_valid(self, form):
         # result= super().form_valid(form) #! poniżej ok !
@@ -84,6 +96,31 @@ class ProduktSelectDeleteView(FormView):
 
         return odp
 
+#---------------------------------KATEGORIA--------------------------------
+from sklepApp.models import Kategoria
+class KategoriaView(View):
+    def get(self, request):
+        return render(request,
+                      template_name='kategoria.html',
+                      context={'kategorie': Kategoria.objects.all()})
+
+class KategoriaCreateView():
+    pass
+#---------------------------------EMAIL------------------------------------
+
+#---------------------------------ADRES------------------------------------
+
+#---------------------------------USER-------------------------------------
+
+#---------------------------------KOSZYK_LOGIN-----------------------------
+
+#---------------------------------KOSZYK_LOGOUT----------------------------
 
 #--------------------------------------------------------------------------
-#autoryzacja + autentykacja + wybów do update i delete
+#autoryzacja (Produkt, Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout, ) -
+
+# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + widok
+# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + formularz
+# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + update i delete
+# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + select do update i delete
+# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + autentykacja
