@@ -10,6 +10,10 @@
     <h2>Produkty:</h2>
         <table border="1" bgcolor="pink" style="border-top-style:double; border-color:yellow; color:darkblue">
             <tr>
+                <td colspan="10"  style="text-align:right" > <input type="submit" class="dodaj" value="Dodaj nowy produkt"></td>
+            </tr>
+
+            <tr>
                 <th>id</th>
                 <th>NAZWA</th>
                 <th>KATEGORIA</th>
@@ -19,7 +23,7 @@
                 <th>CENA</th>
                 <th>DATA_MODYFIKACJI</th>
                 <th>DATA_DODANIA</th>
-                <th>wybór</th>
+                <th>WYBÓR</th>
             </tr>
             <tr>
                 {% for produkt in produkty %}
@@ -35,9 +39,6 @@
                 <td> <button type="submit" class="dodaj">dodaj do koszyka</button> </td>
             </tr>
             {% endfor %}
-            <tr>
-                <td colspan="10" style="text-align:right" > <input type="submit" class="dodaj" value="Dodaj nowy produkt"></td>
-            </tr>
         </table>
     {% endblock %}
 

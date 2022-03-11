@@ -14,6 +14,47 @@ from sklepApp.forms import ProduktForm, ProduktSelectForm
 class MojeLogwanie(LoginView):
     template_name = 'login.html'
 
+
+# ---------------------------------KATEGORIA--------------------------------
+from sklepApp.models import Kategoria
+from sklepApp.forms import KategoriaForm
+
+
+class KategoriaView(View):
+    def get(self, request):
+        return render(request,
+                      template_name='kategoria.html',
+                      context={'kategorie': Kategoria.objects.all()})
+
+
+class KategoriaCreateView(FormView):
+    template_name = 'kategoria_form.html'
+    form_class = KategoriaForm
+    success_url = reverse_lazy('kategoria')
+
+    def form_valid(self, form):
+        result = super(KategoriaCreateView, self).form_valid(form)
+
+        moje_kategorie = form.cleaned_data
+        Kategoria.objects.create(
+                                 nazwa = moje_kategorie['nazwa'],
+                                 )
+        return result
+
+
+class KategoriaUpdateView(UpdateView):
+    template_name = 'kategoria_form.html'
+    model = Kategoria
+    form_class = KategoriaForm
+    success_url = reverse_lazy('kategoria')
+
+
+class KategoriaDeleteView(DeleteView):
+    template_name = 'kategoria_delete_form.html'
+    model = Kategoria
+    success_url = reverse_lazy('kategoria')
+
+
 #---------------------------------PRODUKT----------------------------------
 class ProduktView(View):
     def get(self,request):
@@ -26,7 +67,7 @@ class ProduktView(View):
 class ProduktCreateView(LoginRequiredMixin, FormView):
     template_name = 'produkt_form.html'
     form_class = ProduktForm
-    success_url = reverse_lazy('produkt_create')
+    success_url = reverse_lazy('produkt')
     # permission_required = 'sklepApp.add_produkt'
 
     def form_valid(self, form):
@@ -96,16 +137,6 @@ class ProduktSelectDeleteView(LoginRequiredMixin, FormView):
 
         return odp
 
-#---------------------------------KATEGORIA--------------------------------
-from sklepApp.models import Kategoria
-class KategoriaView(View):
-    def get(self, request):
-        return render(request,
-                      template_name='kategoria.html',
-                      context={'kategorie': Kategoria.objects.all()})
-
-class KategoriaCreateView():
-    pass
 #---------------------------------EMAIL------------------------------------
 
 #---------------------------------ADRES------------------------------------
@@ -119,8 +150,8 @@ class KategoriaCreateView():
 #--------------------------------------------------------------------------
 #autoryzacja (Produkt, Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout, ) -
 
-# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + widok
-# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + formularz
-# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + update i delete
+# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + widok
+# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + formularz
+# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + update i delete
 # (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + select do update i delete
 # (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + autentykacja
