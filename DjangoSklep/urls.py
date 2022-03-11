@@ -21,7 +21,8 @@ from sklepApp.views import (ProduktView, ProduktCreateView, ProduktUpdateView, P
     ProduktSelectUpdateView, ProduktSelectDeleteView )
 from sklepApp.views import (KategoriaView, KategoriaCreateView, KategoriaUpdateView, KategoriaDeleteView, \
     KategoriaSelectUpdateView, KategoriaSelectDeleteView)
-
+from sklepApp.views import EmailView, EmailCreateView, EmailUpdateView, EmailDeleteView, \
+    EmailSelectUpdateView, EmailSelectDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,6 +41,13 @@ urlpatterns = [
     path('kategoria/update', KategoriaSelectUpdateView.as_view(), name='select_kategoria_update'),
     path('kategoria/delete/<pk>', KategoriaDeleteView.as_view(), name='kategoria_delete'),
     path('kategoria/delete', KategoriaSelectDeleteView.as_view(), name='select_kategoria_delete'),
+
+    path('email/', EmailView.as_view(), name='email'),
+    path('email/create', EmailCreateView.as_view(), name='email_create'),
+    path('email/update/<pk>', EmailUpdateView.as_view(), name='email_update'),
+    path('email/update', EmailSelectUpdateView.as_view(), name='select_email_update'),
+    path('email/delete/<pk>', EmailDeleteView.as_view(), name='email_delete'),
+    path('email/delete', EmailSelectDeleteView.as_view(), name='select_kategoria_delete'),
 
 
 

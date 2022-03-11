@@ -8,18 +8,14 @@ from django.views.generic import View, FormView, UpdateView, DeleteView
 # Create your views here.
 from sklepApp.models import Produkt
 from sklepApp.forms import ProduktForm, ProduktSelectForm
-# from sklepApp.models import Kategoria
-
+from sklepApp.models import Kategoria
+from sklepApp.forms import KategoriaForm, KategoriaSelactForm
 #---------------------------------LOGOWANIE--------------------------------
 class MojeLogwanie(LoginView):
     template_name = 'login.html'
 
 
 # ---------------------------------KATEGORIA--------------------------------
-from sklepApp.models import Kategoria
-from sklepApp.forms import KategoriaForm, KategoriaSelactForm
-
-
 class KategoriaView(View):
     def get(self, request):
         return render(request,
@@ -42,14 +38,14 @@ class KategoriaCreateView(LoginRequiredMixin, FormView):
         return result
 
 
-class KategoriaUpdateView(UpdateView):
+class KategoriaUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'kategoria_form.html'
     model = Kategoria
     form_class = KategoriaForm
     success_url = reverse_lazy('kategoria')
 
 
-class KategoriaSelectUpdateView(FormView):
+class KategoriaSelectUpdateView(LoginRequiredMixin, FormView):
     template_name = 'kategoria_select_form.html'
     form_class = KategoriaSelactForm
     success_url = reverse_lazy('kategoria')
@@ -63,13 +59,13 @@ class KategoriaSelectUpdateView(FormView):
         return odp
 
 
-class KategoriaDeleteView(DeleteView):
+class KategoriaDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'kategoria_delete_form.html'
     model = Kategoria
     success_url = reverse_lazy('kategoria')
 
 
-class KategoriaSelectDeleteView(FormView):
+class KategoriaSelectDeleteView(LoginRequiredMixin, FormView):
     template_name = 'kategoria_select_form.html'
     form_class = KategoriaSelactForm
     success_url = reverse_lazy('kategoria')
@@ -169,6 +165,72 @@ class ProduktSelectDeleteView(LoginRequiredMixin, FormView):
         return odp
 
 #---------------------------------EMAIL------------------------------------
+from sklepApp.models import Email
+from sklepApp.forms import EmailForm, EmailSelactForm
+class EmailView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request,
+                      template_name='email.html',
+                      context={'emaile': Email.objects.all()})
+
+
+class EmailCreateView(LoginRequiredMixin, FormView):
+    template_name = 'email_create_form.html'
+    form_class = EmailForm
+    success_url = reverse_lazy('email')
+
+    def form_valid(self, form):
+        result = super(EmailCreateView, self).form_valid(form)
+
+        moje_email = form.cleaned_data
+        Email.objects.create(
+                             email = moje_email['email'],
+                             )
+        return result
+
+
+class EmailUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'email_form.html'
+    model = Email
+    form_class = EmailForm
+    success_url = reverse_lazy('email')
+
+
+class EmailSelectUpdateView(LoginRequiredMixin, FormView):
+    template_name = 'email_select_form.html'
+    form_class = EmailSelactForm
+    success_url = reverse_lazy('email')
+
+    def form_valid(self, form):
+        result = super(EmailSelectUpdateView, self).form_valid(form)
+
+        moje_email = form.cleaned_data
+        id_email = moje_email['email'].id
+        odp = redirect('email_update', pk=id_email)
+        return odp
+
+
+class EmailDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'email_delete_form.html'
+    model = Email
+    success_url = reverse_lazy('email')
+
+
+class EmailSelectDeleteView(LoginRequiredMixin, FormView):
+    template_name = 'kategoria_select_form.html'
+    form_class = EmailSelactForm
+    success_url = reverse_lazy('kategoria')
+    # permission_required = 'sklepApp.delete_produkt'
+
+    def form_valid(self, form):
+        # result= super().form_valid(form) #! poniżej ok !
+        result= super(EmailSelectDeleteView, self).form_valid(form)
+        moje_email = form.cleaned_data
+
+        id_email = moje_email['email'].id
+        odp = redirect('email_delete', pk=id_email)
+
+        return odp
 
 #---------------------------------ADRES------------------------------------
 

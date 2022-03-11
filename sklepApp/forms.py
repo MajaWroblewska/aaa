@@ -2,7 +2,7 @@
 from django import forms
 from django.forms import Textarea
 
-from sklepApp.models import Kategoria, Produkt
+from sklepApp.models import Kategoria, Produkt, Email
 
 #---------------------------------KATEGORIA--------------------------------
 class KategoriaForm(forms.ModelForm):
@@ -14,9 +14,6 @@ class KategoriaForm(forms.ModelForm):
 
 class KategoriaSelactForm(forms.Form):
     kategorie= forms.ModelChoiceField(queryset=Kategoria.objects)
-
-
-
 
 
 #---------------------------------PRODUKT----------------------------------
@@ -40,7 +37,15 @@ class ProduktSelectForm(forms.Form):
     produkty= forms.ModelChoiceField(queryset=Produkt.objects)
 
 #---------------------------------EMAIL------------------------------------
+class EmailForm(forms.ModelForm):
+    class Meta:
+        model = Email
+        fields = '__all__'
+    email = forms.EmailField()
 
+
+class EmailSelactForm(forms.Form):
+    email= forms.ModelChoiceField(queryset=Email.objects)
 #---------------------------------ADRES------------------------------------
 
 #---------------------------------USER-------------------------------------
