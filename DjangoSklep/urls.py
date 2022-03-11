@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path
 
 from sklepApp.views import MojeLogwanie
-from sklepApp.views import ProduktView, ProduktCreateView, ProduktUpdateView, ProduktDeleteView, \
-    ProduktSelectUpdateView, ProduktSelectDeleteView
-from sklepApp.views import KategoriaView, KategoriaCreateView, KategoriaUpdateView
+from sklepApp.views import (ProduktView, ProduktCreateView, ProduktUpdateView, ProduktDeleteView, \
+    ProduktSelectUpdateView, ProduktSelectDeleteView )
+from sklepApp.views import (KategoriaView, KategoriaCreateView, KategoriaUpdateView, KategoriaDeleteView
+                            )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,7 +37,7 @@ urlpatterns = [
     path('kategoria/', KategoriaView.as_view(), name='kategoria'),
     path('kategoria/create', KategoriaCreateView.as_view(), name='kategoria_create'),
     path('kategoria/update/<pk>', KategoriaUpdateView.as_view(), name='kategoria_update'),
-    # path('kategoria/update/<pk>', KategoriaUpdateView.as_view(), name='kategoria_update'),
+    path('kategoria/delete/<pk>', KategoriaDeleteView.as_view(), name='kategoria_delete'),
 
 
 
