@@ -17,7 +17,7 @@ class MojeLogwanie(LoginView):
 
 # ---------------------------------KATEGORIA--------------------------------
 from sklepApp.models import Kategoria
-from sklepApp.forms import KategoriaForm
+from sklepApp.forms import KategoriaForm, KategoriaSelactForm
 
 
 class KategoriaView(View):
@@ -49,10 +49,41 @@ class KategoriaUpdateView(UpdateView):
     success_url = reverse_lazy('kategoria')
 
 
+class KategoriaSelectUpdateView(FormView):
+    template_name = 'kategoria_select_form.html'
+    form_class = KategoriaSelactForm
+    success_url = reverse_lazy('kategoria')
+
+    def form_valid(self, form):
+        result = super(KategoriaSelectUpdateView, self).form_valid(form)
+
+        moje_kategorie = form.cleaned_data
+        id_kategoria = moje_kategorie['kategorie'].id
+        odp = redirect('kategoria_update', pk=id_kategoria)
+        return odp
+
+
 class KategoriaDeleteView(DeleteView):
     template_name = 'kategoria_delete_form.html'
     model = Kategoria
     success_url = reverse_lazy('kategoria')
+
+
+class KategoriaSelectDeleteView(FormView):
+    template_name = 'kategoria_select_form.html'
+    form_class = KategoriaSelactForm
+    success_url = reverse_lazy('kategoria')
+    # permission_required = 'sklepApp.delete_produkt'
+
+    def form_valid(self, form):
+        # result= super().form_valid(form) #! poniżej ok !
+        result= super(KategoriaSelectDeleteView, self).form_valid(form)
+        moje_kategorie = form.cleaned_data
+
+        id_kategoria = moje_kategorie['kategorie'].id
+        odp = redirect('kategoria_delete', pk=id_kategoria)
+
+        return odp
 
 
 #---------------------------------PRODUKT----------------------------------
@@ -153,5 +184,5 @@ class ProduktSelectDeleteView(LoginRequiredMixin, FormView):
 # ( Email, Adres, User, Koszyk_login, Koszyk_logout), + widok
 # ( Email, Adres, User, Koszyk_login, Koszyk_logout), + formularz
 # ( Email, Adres, User, Koszyk_login, Koszyk_logout), + update i delete
-# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + select do update i delete
+# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + select do update i delete
 # (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + autentykacja

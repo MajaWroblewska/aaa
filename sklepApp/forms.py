@@ -12,7 +12,8 @@ class KategoriaForm(forms.ModelForm):
     nazwa = forms.CharField(max_length=100)
 
 
-
+class KategoriaSelactForm(forms.Form):
+    kategorie= forms.ModelChoiceField(queryset=Kategoria.objects)
 
 
 
