@@ -27,8 +27,8 @@ class KategoriaView(View):
                       context={'kategorie': Kategoria.objects.all()})
 
 
-class KategoriaCreateView(FormView):
-    template_name = 'kategoria_form.html'
+class KategoriaCreateView(LoginRequiredMixin, FormView):
+    template_name = 'kategoria_create_form.html'
     form_class = KategoriaForm
     success_url = reverse_lazy('kategoria')
 
@@ -96,7 +96,7 @@ class ProduktView(View):
 
 # class ProduktCreateView(PermissionRequiredMixin, LoginRequiredMixin, FormView):
 class ProduktCreateView(LoginRequiredMixin, FormView):
-    template_name = 'produkt_form.html'
+    template_name = 'produkt_create_form.html'
     form_class = ProduktForm
     success_url = reverse_lazy('produkt')
     # permission_required = 'sklepApp.add_produkt'

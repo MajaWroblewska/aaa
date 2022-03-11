@@ -31,16 +31,15 @@ urlpatterns = [
     path('produkt/create', ProduktCreateView.as_view(), name='produkt_create'),
     path('produkt/update/<pk>', ProduktUpdateView.as_view(), name='produkt_update'),
     path('produkt/update', ProduktSelectUpdateView.as_view(), name='select_produkt_update'),
-    path('produkt/update/', ProduktSelectUpdateView.as_view(), name='select_produkt_update'),
     path('produkt/delete/<pk>', ProduktDeleteView.as_view(), name='produkt_delete'),
-    path('produkt/delete/', ProduktSelectDeleteView.as_view(), name='select_produkt_delete'),
+    path('produkt/delete', ProduktSelectDeleteView.as_view(), name='select_produkt_delete'),
 
     path('kategoria/', KategoriaView.as_view(), name='kategoria'),
     path('kategoria/create', KategoriaCreateView.as_view(), name='kategoria_create'),
     path('kategoria/update/<pk>', KategoriaUpdateView.as_view(), name='kategoria_update'),
     path('kategoria/update', KategoriaSelectUpdateView.as_view(), name='select_kategoria_update'),
     path('kategoria/delete/<pk>', KategoriaDeleteView.as_view(), name='kategoria_delete'),
-    path('kategoria/delete/', KategoriaSelectDeleteView.as_view(), name='select_kategoria_delete'),
+    path('kategoria/delete', KategoriaSelectDeleteView.as_view(), name='select_kategoria_delete'),
 
 
 
