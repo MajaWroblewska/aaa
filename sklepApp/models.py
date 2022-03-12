@@ -68,7 +68,7 @@ class Koszyk_login(models.Model):
     produkt = models.ManyToManyField(Produkt)
 
     def __str__(self):
-        return f'{self.nr_zamowienia}'
+        return f'{self.id}'
 
 
 # -------------------------------------------------------------------------------
@@ -78,5 +78,5 @@ class Koszyk_logout(models.Model):
     produkt = models.ManyToManyField(Produkt)
 
     def __str__(self):
-        return f'{self.nr_zamowienia}'
+        return f'{self.id}'
 # -------------------------------------------------------------------------------

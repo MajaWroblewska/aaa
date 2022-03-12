@@ -10,6 +10,10 @@ from sklepApp.models import Produkt
 from sklepApp.forms import ProduktForm, ProduktSelectForm
 from sklepApp.models import Kategoria
 from sklepApp.forms import KategoriaForm, KategoriaSelactForm
+from sklepApp.models import Email
+from sklepApp.forms import EmailForm, EmailSelactForm
+from sklepApp.models import Adres
+from sklepApp.forms import AdresForm, AdresSelectForm
 #---------------------------------LOGOWANIE--------------------------------
 class MojeLogwanie(LoginView):
     template_name = 'login.html'
@@ -144,7 +148,7 @@ class ProduktDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'produkt_delete_form.html'
     model = Produkt
     success_url = reverse_lazy('produkt')
-    permission_required = 'slepApp.delete_produkt'
+    permission_required = 'sklepApp.delete_produkt'
 
 
 # class ProduktSelectDeleteView(PermissionRequiredMixin, LoginRequiredMixin, FormView):
@@ -165,8 +169,7 @@ class ProduktSelectDeleteView(LoginRequiredMixin, FormView):
         return odp
 
 #---------------------------------EMAIL------------------------------------
-from sklepApp.models import Email
-from sklepApp.forms import EmailForm, EmailSelactForm
+
 class EmailView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request,
@@ -233,8 +236,78 @@ class EmailSelectDeleteView(LoginRequiredMixin, FormView):
         return odp
 
 #---------------------------------ADRES------------------------------------
+class AdresView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request,
+                      template_name='adres.html',
+                      context={'adresy': Adres.objects.all()})
+
+
+class AdresCreateView(LoginRequiredMixin, FormView):
+    template_name = 'adres_create_form.html'
+    form_class = AdresForm
+    success_url = reverse_lazy('adres')
+
+    def form_valid(self, form):
+        result = super(AdresCreateView, self).form_valid(form)
+
+        moj_adres = form.cleaned_data
+        Adres.objects.create(
+                             kraj = moj_adres['kraj'],
+                             miasto = moj_adres['miasto'],
+                             ulica = moj_adres['ulica'],
+                             nr_budynku = moj_adres['nr_budynku'],
+                             nr_mieszkania = moj_adres['nr_mieszkania'],
+                             )
+        return result
+
+
+class AdresUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'adres_form.html'
+    model = Adres
+    form_class = AdresForm
+    success_url = reverse_lazy('adres')
+
+
+class AdresSelectUpdateView(LoginRequiredMixin, FormView):
+    template_name = 'adres_select_form.html'
+    form_class = AdresSelectForm
+    success_url = reverse_lazy('adres')
+
+    def form_valid(self, form):
+        result = super(AdresSelectUpdateView, self).form_valid(form)
+
+        moje_adresy = form.cleaned_data
+        id_adres = moje_adresy['adresy'].id
+        odp = redirect('adres_update', pk=id_adres)
+        return odp
+
+
+class AdresDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'adres_delete_form.html'
+    model = Adres
+    success_url = reverse_lazy('adres')
+
+
+class AdresSelectDeleteView(LoginRequiredMixin, FormView):
+    template_name = 'adres_select_form.html'
+    form_class = AdresSelectForm
+    success_url = reverse_lazy('adres')
+    # permission_required = 'sklepApp.delete_adres'
+
+    def form_valid(self, form):
+        result= super(AdresSelectDeleteView, self).form_valid(form)
+        moje_adresy = form.cleaned_data
+
+        id_adres = moje_adresy['adresy'].id
+        odp = redirect('adres_delete', pk=id_adres)
+
+        return odp
+
 
 #---------------------------------USER-------------------------------------
+
+
 
 #---------------------------------KOSZYK_LOGIN-----------------------------
 
@@ -243,8 +316,8 @@ class EmailSelectDeleteView(LoginRequiredMixin, FormView):
 #--------------------------------------------------------------------------
 #autoryzacja (Produkt, Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout, ) -
 
-# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + widok
-# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + formularz
-# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + update i delete
-# ( Email, Adres, User, Koszyk_login, Koszyk_logout), + select do update i delete
-# (Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout), + autentykacja
+# ( User, Koszyk_login, Koszyk_logout), + widok
+# ( User, Koszyk_login, Koszyk_logout), + formularz
+# ( User, Koszyk_login, Koszyk_logout), + update i delete
+# ( User, Koszyk_login, Koszyk_logout), + select do update i delete
+# ( User, Koszyk_login, Koszyk_logout), + autentykacja

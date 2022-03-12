@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>select produkt</title>
+    <title>select adres form</title>
 </head>
 <body>
     {% extends 'base.html' %}
     {% block content %}
-    <h2 style="color:red">Wybór produktów</h2>
+    <h2 style="color:red">Wybór adresów</h2>
         <form method="post">
             {% csrf_token %}
             <table> {{ form }} </table>

@@ -23,6 +23,8 @@ from sklepApp.views import (KategoriaView, KategoriaCreateView, KategoriaUpdateV
     KategoriaSelectUpdateView, KategoriaSelectDeleteView)
 from sklepApp.views import EmailView, EmailCreateView, EmailUpdateView, EmailDeleteView, \
     EmailSelectUpdateView, EmailSelectDeleteView
+from sklepApp.views import AdresView, AdresCreateView, AdresUpdateView, AdresDeleteView, \
+    AdresSelectUpdateView, AdresSelectDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,14 +35,14 @@ urlpatterns = [
     path('produkt/update/<pk>', ProduktUpdateView.as_view(), name='produkt_update'),
     path('produkt/update', ProduktSelectUpdateView.as_view(), name='select_produkt_update'),
     path('produkt/delete/<pk>', ProduktDeleteView.as_view(), name='produkt_delete'),
-    path('produkt/delete', ProduktSelectDeleteView.as_view(), name='select_produkt_delete'),
+    path('produkt/delete/', ProduktSelectDeleteView.as_view(), name='select_produkt_delete'),
 
     path('kategoria/', KategoriaView.as_view(), name='kategoria'),
     path('kategoria/create', KategoriaCreateView.as_view(), name='kategoria_create'),
     path('kategoria/update/<pk>', KategoriaUpdateView.as_view(), name='kategoria_update'),
     path('kategoria/update', KategoriaSelectUpdateView.as_view(), name='select_kategoria_update'),
     path('kategoria/delete/<pk>', KategoriaDeleteView.as_view(), name='kategoria_delete'),
-    path('kategoria/delete', KategoriaSelectDeleteView.as_view(), name='select_kategoria_delete'),
+    path('kategoria/delete/', KategoriaSelectDeleteView.as_view(), name='select_kategoria_delete'),
 
     path('email/', EmailView.as_view(), name='email'),
     path('email/create', EmailCreateView.as_view(), name='email_create'),
@@ -49,6 +51,12 @@ urlpatterns = [
     path('email/delete/<pk>', EmailDeleteView.as_view(), name='email_delete'),
     path('email/delete', EmailSelectDeleteView.as_view(), name='select_kategoria_delete'),
 
+    path('adres/', AdresView.as_view(), name='adres'),
+    path('adres/create', AdresCreateView.as_view(), name='adres_create'),
+    path('adres/update/<pk>', AdresUpdateView.as_view(), name='adres_update'),
+    path('adres/update', AdresSelectUpdateView.as_view(), name='select_adres_update'),
+    path('adres/delete/<pk>', AdresDeleteView.as_view(), name='adres_delete'),
+    path('adres/delete', AdresSelectDeleteView.as_view(), name='select_adres_delete'),
 
 
 ]
