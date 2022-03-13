@@ -46,7 +46,7 @@ class Adres(models.Model):
     nr_mieszkania = models.IntegerField()
 
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.id} {self.kraj}-{self.miasto}-{self.ulica}-{self.nr_budynku}/{self.nr_mieszkania}'
 
 
 # -------------------------------------------------------------------------------

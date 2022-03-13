@@ -24,7 +24,8 @@ class KategoriaView(View):
     def get(self, request):
         return render(request,
                       template_name='kategoria.html',
-                      context={'kategorie': Kategoria.objects.all()})
+                      context={'kategorie': Kategoria.objects.all()}
+                      )
 
 
 class KategoriaCreateView(LoginRequiredMixin, FormView):
@@ -174,7 +175,8 @@ class EmailView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request,
                       template_name='email.html',
-                      context={'emaile': Email.objects.all()})
+                      context={'emaile': Email.objects.all()}
+                      )
 
 
 class EmailCreateView(LoginRequiredMixin, FormView):
@@ -240,7 +242,8 @@ class AdresView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request,
                       template_name='adres.html',
-                      context={'adresy': Adres.objects.all()})
+                      context={'adresy': Adres.objects.all()}
+                      )
 
 
 class AdresCreateView(LoginRequiredMixin, FormView):
@@ -304,20 +307,86 @@ class AdresSelectDeleteView(LoginRequiredMixin, FormView):
 
         return odp
 
-
 #---------------------------------USER-------------------------------------
+from sklepApp.models import User
+from sklepApp.forms import UserForm, UserSelectForm
+
+class UserView(FormView):
+    def get(self,request):
+        return render (request,
+                       template_name='user.html',
+                       context= {'usery': User.objects.all()}
+                       )
 
 
+class UserCreateView(LoginRequiredMixin, FormView):
+    template_name = 'user_create_form.html'
+    form_class = UserForm
+    success_url = reverse_lazy('user')
+
+    def form_valid(self, form):
+        result = super(UserCreateView, self).form_valid(form)
+
+        moj_user = form.cleaned_data
+        User.objects.create(
+            imie=moj_user['imie'],
+            nazwisko=moj_user['nazwisko'],
+            login=moj_user['login'],
+            email=moj_user['email'],
+            adres=moj_user['adres'],
+        )
+        return result
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'user_form.html'
+    model = User
+    form_class = UserForm
+    success_url = reverse_lazy('user')
+
+class UserSelectUpdateView(LoginRequiredMixin, FormView):
+    template_name = 'user_select_form.html'
+    form_class = UserSelectForm
+    success_url = reverse_lazy('user')
+
+    def form_valid(self, form):
+        result = super(UserSelectUpdateView, self).form_valid(form)
+
+        moj_user = form.cleaned_data
+        id_user = moj_user['usery'].id
+        odp = redirect('user_update', pk=id_user)
+        return odp
+
+class UserDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'user_delete_form.html'
+    model = User
+    success_url = reverse_lazy('user')
+
+class UserSelectDeleteView(LoginRequiredMixin, FormView):
+    template_name = 'user_select_form.html'
+    form_class = UserSelectForm
+    success_url = reverse_lazy('user')
+
+    # permission_required = 'sklepApp.delete_user'
+
+    def form_valid(self, form):
+        result = super(UserSelectDeleteView, self).form_valid(form)
+        moj_user = form.cleaned_data
+
+        id_user = moj_user['usery'].id
+        odp = redirect('user_delete', pk=id_user)
+
+        return odp
 
 #---------------------------------KOSZYK_LOGIN-----------------------------
+
 
 #---------------------------------KOSZYK_LOGOUT----------------------------
 
 #--------------------------------------------------------------------------
 #autoryzacja (Produkt, Kategoria, Email, Adres, User, Koszyk_login, Koszyk_logout, ) -
 
-# ( User, Koszyk_login, Koszyk_logout), + widok
-# ( User, Koszyk_login, Koszyk_logout), + formularz
-# ( User, Koszyk_login, Koszyk_logout), + update i delete
-# ( User, Koszyk_login, Koszyk_logout), + select do update i delete
-# ( User, Koszyk_login, Koszyk_logout), + autentykacja
+# ( Koszyk_login, Koszyk_logout), + widok
+# ( Koszyk_login, Koszyk_logout), + formularz
+# ( Koszyk_login, Koszyk_logout), + update i delete
+# ( Koszyk_login, Koszyk_logout), + select do update i delete
+# ( Koszyk_login, Koszyk_logout), + autentykacja

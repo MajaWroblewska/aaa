@@ -2,19 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>delete produkt</title>
+    <title>user_delete_form</title>
 </head>
 <body>
     {% extends 'base.html' %}
     {% block content %}
-    <h2>Usówanie produktu:</h2>
+    <h2>Usówanie urzytkowników:</h2>
     <form method="post">
         {% csrf_token %}
         <h3>Jestes pewien, że chcesz usunąć: "{{ object }}" z bazy?</h3>
         <input type="submit" value="Usuń" class="wybierz">
-        <input type="button" value="Anuluj"  onclick="window.location.href='/produkt/delete'" class="anuluj">
+        <input type="button" value="Anuluj"  onclick="window.location.href='/user/'" class="anuluj">
     </form>
     {% endblock %}
-
 </body>
 </html>
