@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>koszyk_login</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <h2>Koszyk_login:</h2>
+        <table border="1" bgcolor="pink" style="border-top-style:double; border-color:yellow; color:darkblue">
+            <tr>
+                <td colspan="10"  style="text-align:right" > <input type="submit" class="dodaj" value="Dodaj nowy koszyk_login"></td>
+            </tr>
+
+            <tr>
+                <th>id</th>
+                <th>NR_ZAMÓWIENIA</th>
+                <th>USER</th>
+                <th>PRODUKT</th>
+            </tr>
+            <tr>
+                {% for kosz in koszyki_in %}
+                <td> {{ kosz.id }}</td>
+                <td> {{ kosz.nr_zamowienia }}</td>
+                <td> {{ kosz.user }}</td>
+                <td> {{ kosz.produkt }}</td>
+            </tr>
+                {% endfor %}
+        </table>
+    {% endblock %}
+</body>
+</html>

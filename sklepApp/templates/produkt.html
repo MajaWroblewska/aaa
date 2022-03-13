@@ -8,6 +8,9 @@
     {% extends 'base.html' %}
     {% block content %}
     <h2>Produkty:</h2>
+    <img src="C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\zdjecia\20200710_202700.jpg"  >
+    <img src="zdjecia\20200710_202700.jpg" >
+    <img src="C:\Users\LucWr\Desktop\telefon\wew\20190226_213232.jpg" >
         <table border="1" bgcolor="pink" style="border-top-style:double; border-color:yellow; color:darkblue">
             <tr>
                 <td colspan="10"  style="text-align:right" > <input type="submit" class="dodaj" value="Dodaj nowy produkt"></td>
@@ -19,10 +22,11 @@
                 <th>KATEGORIA</th>
                 <th>OPIS</th>
                 <th>ZDJECIE</th>
+                <th>ZDJECIE</th>
                 <th>ILOŚĆ</th>
                 <th>CENA</th>
-                <th>DATA_MODYFIKACJI</th>
-                <th>DATA_DODANIA</th>
+<!--                <th>DATA_MODYFIKACJI</th>-->
+<!--                <th>DATA_DODANIA</th>-->
                 <th>WYBÓR</th>
             </tr>
             <tr>
@@ -32,10 +36,11 @@
                 <td> {{ produkt.kategoria }}</td>
                 <td> {{ produkt.opis }}</td>
                 <td> {{ produkt.zdjecie }}</td>
+                <td> <img src="C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\zdjecia\20200710_202700.jpg" ></td>
                 <td> {{ produkt.ilosc_w_magazynie }}</td>
                 <td> {{ produkt.cena }}</td>
-                <td> {{ produkt.data_modyfikacji }}</td>
-                <td> {{ produkt.data_dodania }}</td>
+<!--                <td> {{ produkt.data_modyfikacji }}</td>-->
+<!--                <td> {{ produkt.data_dodania }}</td>-->
                 <td> <button type="submit" class="dodaj">dodaj do koszyka "link"</button> </td>
             </tr>
             {% endfor %}
@@ -45,3 +50,4 @@
 
 </body>
 </html>
+C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\zdjecia

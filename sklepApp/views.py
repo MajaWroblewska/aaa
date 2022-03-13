@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, FormView, UpdateView, DeleteView
 
-# Create your views here.
+# import plików
 from sklepApp.models import Produkt
 from sklepApp.forms import ProduktForm, ProduktSelectForm
 from sklepApp.models import Kategoria
@@ -14,6 +14,9 @@ from sklepApp.models import Email
 from sklepApp.forms import EmailForm, EmailSelactForm
 from sklepApp.models import Adres
 from sklepApp.forms import AdresForm, AdresSelectForm
+from sklepApp.models import User
+from sklepApp.forms import UserForm, UserSelectForm
+
 #---------------------------------LOGOWANIE--------------------------------
 class MojeLogwanie(LoginView):
     template_name = 'login.html'
@@ -90,6 +93,9 @@ class KategoriaSelectDeleteView(LoginRequiredMixin, FormView):
 #---------------------------------PRODUKT----------------------------------
 class ProduktView(View):
     def get(self,request):
+        zd=Produkt.objects.all()[0].zdjecie
+        print(zd)
+        # print(dir(Produkt.objects.all()[0]))
         return render(request,
                       template_name='produkt.html',
                       context={'produkty': Produkt.objects.all()},
@@ -308,9 +314,6 @@ class AdresSelectDeleteView(LoginRequiredMixin, FormView):
         return odp
 
 #---------------------------------USER-------------------------------------
-from sklepApp.models import User
-from sklepApp.forms import UserForm, UserSelectForm
-
 class UserView(FormView):
     def get(self,request):
         return render (request,
@@ -378,8 +381,20 @@ class UserSelectDeleteView(LoginRequiredMixin, FormView):
         return odp
 
 #---------------------------------KOSZYK_LOGIN-----------------------------
+from sklepApp.models import Koszyk_login
 
 
+class Koszyk_loginView(FormView):
+    def get(self,request):
+        print(Koszyk_login.objects.all()[0])
+        print(dir(Koszyk_login.objects.all()[1]))
+        print((Koszyk_login.objects.all()[0].id))
+        print((Koszyk_login.objects.all()[0].produkt))
+        print((Koszyk_login.objects.all()[1].produkt))
+        return render(request,
+                      template_name= 'koszyk_login.html',
+                      context= {'koszyki_in': Koszyk_login.objects.all()}
+                      )
 #---------------------------------KOSZYK_LOGOUT----------------------------
 
 #--------------------------------------------------------------------------

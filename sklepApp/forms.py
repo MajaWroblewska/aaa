@@ -26,7 +26,7 @@ class ProduktForm(forms.ModelForm):
     nazwa = forms.CharField(max_length=200)
     kategoria = forms.ModelChoiceField(queryset=Kategoria.objects)
     opis = forms.CharField(widget=Textarea)
-    zdjecie = forms.ImageField(allow_empty_file=True,) # null=True
+    zdjecie = forms.ImageField(allow_empty_file=True,)
     ilosc_w_magazynie = forms.IntegerField(min_value=0,)
     cena = forms.DecimalField(min_value=0, max_digits=10, decimal_places=2)
     data_dodania = forms.DateTimeField()

@@ -51,7 +51,7 @@ class Koszyk_logoutAdmin(admin.ModelAdmin):
 
 
 @admin.register(Koszyk_login)
-class Koszyk_logoutAdmin(admin.ModelAdmin):
+class Koszyk_loginAdmin(admin.ModelAdmin):
     list_display = ['id', 'nr_zamowienia','user',]
 
 
