@@ -3,28 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Produkty</title>
+
 </head>
+
 <body>
     {% extends 'base.html' %}
     {% block content %}
     <h2>Produkty:</h2>
-    <img src="C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\zdjecia\20200710_202700.jpg"  >
-    <img src="zdjecia\20200710_202700.jpg" >
-    <img src="C:\Users\LucWr\Desktop\telefon\wew\20190226_213232.jpg" >
+
+    {% load static %}
+<!--    <img src='{% static "jaga2.jpg"  %}'>-->
+
         <table border="1" bgcolor="pink" style="border-top-style:double; border-color:yellow; color:darkblue">
             <tr>
                 <td colspan="10"  style="text-align:right" > <input type="submit" class="dodaj" value="Dodaj nowy produkt"></td>
             </tr>
-
             <tr>
                 <th>id</th>
                 <th>NAZWA</th>
                 <th>KATEGORIA</th>
                 <th>OPIS</th>
-                <th>ZDJECIE</th>
-                <th>ZDJECIE</th>
+                <th>path</th>
+                <th>ZDJECIE 1</th>
+                <th>ZDJECIE 2</th>
                 <th>ILOŚĆ</th>
                 <th>CENA</th>
+
 <!--                <th>DATA_MODYFIKACJI</th>-->
 <!--                <th>DATA_DODANIA</th>-->
                 <th>WYBÓR</th>
@@ -36,13 +40,32 @@
                 <td> {{ produkt.kategoria }}</td>
                 <td> {{ produkt.opis }}</td>
                 <td> {{ produkt.zdjecie }}</td>
-                <td> <img src="C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\zdjecia\20200710_202700.jpg" ></td>
+                    <!-- nie przekazuje ścieżki ze {{produkt.zdjecie.path|slice:"62:"}} mimo ze to sting  -->
+<!--                {% static '{{produkt.zdjecie.path|slice:"62:"}}' as m %}-->
+<!--                <td><img src="{{ m }}" alt=bląd={{produkt.zdjecie.path|slice:"62:"}}></td>-->
+
+                <!-- zdjecie 1-->
+                {% static "01.jpg" as zdj %}
+                <td><img src="{{ zdj }}" "style=" height:100px;"> </td>
+<!--                <td><img src="{{ zdj }}" "style=" width:50px;"> </td>-->
+
+                <!-- zdjecie 2-->
+                <td><img src="{% static '01.jpg'  %}"style="width: 150px;" ></td>
+<!--                <td><img src="{% static 'pobrane1.jpg'  %}"style=" height:100px;" ></td>-->
+
+<!--                <td></td>-->
+<!--                <td><img src="{% static '{{produkt.zdjecie|slice:"62:"  }}' %}" alt={{produkt.zdjecie}}> </td>-->
+<!--                <td><img src="{% static '{{produkt.zdjecie}}' %}" alt={{produkt.zdjecie}}> </td>-->
+
                 <td> {{ produkt.ilosc_w_magazynie }}</td>
                 <td> {{ produkt.cena }}</td>
 <!--                <td> {{ produkt.data_modyfikacji }}</td>-->
 <!--                <td> {{ produkt.data_dodania }}</td>-->
                 <td> <button type="submit" class="dodaj">dodaj do koszyka "link"</button> </td>
+
             </tr>
+            {% empty %}
+                <td colspan="10" style="text-align:center">Brak produktów w sklepie !!!</td>
             {% endfor %}
         </table>
     {% endblock %}

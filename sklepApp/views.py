@@ -93,8 +93,14 @@ class KategoriaSelectDeleteView(LoginRequiredMixin, FormView):
 #---------------------------------PRODUKT----------------------------------
 class ProduktView(View):
     def get(self,request):
-        zd=Produkt.objects.all()[0].zdjecie
-        print(zd)
+        # zd=Produkt.objects.all()[0].zdjecie
+        zd=Produkt.objects.all()[0].zdjecie.path
+        print(zd) # ->str -> C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\01.jpg
+
+        print(zd[62:]) # -> 01.jpg
+        print(zd[-6:]) # -> 01.jpg
+        # print(type(zd)) # -> str
+        # print(dir(zd))
         # print(dir(Produkt.objects.all()[0]))
         return render(request,
                       template_name='produkt.html',
