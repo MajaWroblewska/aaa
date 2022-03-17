@@ -27,7 +27,7 @@ from sklepApp.views import AdresView, AdresCreateView, AdresUpdateView, AdresDel
     AdresSelectUpdateView, AdresSelectDeleteView
 from sklepApp.views import UserView, UserCreateView, UserUpdateView,UserDeleteView, \
     UserSelectUpdateView, UserSelectDeleteView
-from sklepApp.views import Koszyk_loginView
+from sklepApp.views import Koszyk_loginView, Koszyk_loginCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -69,4 +69,5 @@ urlpatterns = [
     path('user/delete', UserSelectDeleteView.as_view(), name='select_user_delete'),
 
     path('koszykin/', Koszyk_loginView.as_view(), name= 'koszyk_login'),
+    path('koszykin/create', Koszyk_loginCreateView.as_view(), name= 'koszyk_login_create'),
 ]

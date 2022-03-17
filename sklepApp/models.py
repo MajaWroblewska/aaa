@@ -4,7 +4,7 @@ from django.utils import timezone
 
 # Create your models here.
 
-
+# ---------------------------------KATEGORIA--------------------------------
 class Kategoria(models.Model):
     nazwa = models.CharField(max_length=100)
 
@@ -12,7 +12,7 @@ class Kategoria(models.Model):
         return f'{self.nazwa}'
 
 
-# -------------------------------------------------------------------------------
+#---------------------------------PRODUKT----------------------------------
 class Produkt(models.Model):
     nazwa = models.CharField(max_length=200)
     kategoria = models.ForeignKey(Kategoria, on_delete=models.CASCADE)
@@ -27,7 +27,7 @@ class Produkt(models.Model):
         return f'{self.nazwa} : img={self.zdjecie} : stan={self.ilosc_w_magazynie} : cena= {self.cena}'  # : data dod/mod= {self.data_dodania}/{self.data_modyfikacji}'
 
 
-# -------------------------------------------------------------------------------
+#---------------------------------EMAIL------------------------------------
 
 class Email(models.Model):
     email = models.EmailField()
@@ -36,7 +36,7 @@ class Email(models.Model):
         return f'{self.email}'
 
 
-# -------------------------------------------------------------------------------
+#---------------------------------ADRES------------------------------------
 
 class Adres(models.Model):
     kraj = models.CharField(max_length=100)
@@ -49,7 +49,7 @@ class Adres(models.Model):
         return f'{self.id} {self.kraj}-{self.miasto}-{self.ulica}-{self.nr_budynku}/{self.nr_mieszkania}'
 
 
-# -------------------------------------------------------------------------------
+#---------------------------------USER-------------------------------------
 class User(models.Model):
     imie = models.CharField(max_length=100)
     nazwisko = models.CharField(max_length=200)
@@ -61,22 +61,39 @@ class User(models.Model):
         return f'{self.imie} {self.nazwisko} - {self.login}'
 
 
-# -------------------------------------------------------------------------------
+#---------------------------------KOSZYK_LOGIN-----------------------------
+import datetime
+
 class Koszyk_login(models.Model):
-    nr_zamowienia = models.IntegerField()
+    def fun():
+        x = datetime.datetime.now()
+        print(x)
+        dz = [str(x.year), str(x.month), str(x.day), ]
+        go = [str(x.hour), str(x.minute), str(x.second)]
+        d = '/'.join(dz)
+        g = ''.join(go)
+        zamowienie = d + "/" + g
+        return zamowienie
+
+    nr_zamowienia = models.CharField(max_length=15, default=fun(), null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    produkt = models.ManyToManyField(Produkt)
+    produkt = models.ForeignKey(Produkt, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.id}'
 
 
-# -------------------------------------------------------------------------------
+#---------------------------------KOSZYK_LOGOUT----------------------------
+
 
 class Koszyk_logout(models.Model):
-    nr_zamowienia = models.IntegerField()
+    nr_zamowienia = models.CharField(max_length=9)
     produkt = models.ManyToManyField(Produkt)
 
     def __str__(self):
         return f'{self.id}'
+
 # -------------------------------------------------------------------------------
+
+class Koszyk(models.Model):
+    pass

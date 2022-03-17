@@ -18,13 +18,18 @@
                 <th>NR_ZAMÓWIENIA</th>
                 <th>USER</th>
                 <th>PRODUKT</th>
+
             </tr>
             <tr>
                 {% for kosz in koszyki_in %}
                 <td> {{ kosz.id }}</td>
+<!--                <td> {{ zamowienie }}</td>-->
                 <td> {{ kosz.nr_zamowienia }}</td>
                 <td> {{ kosz.user }}</td>
                 <td> {{ kosz.produkt }}</td>
+
+
+
             </tr>
                 {% endfor %}
         </table>

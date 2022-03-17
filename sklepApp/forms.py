@@ -2,7 +2,8 @@
 from django import forms
 from django.forms import Textarea
 
-from sklepApp.models import Kategoria, Produkt, Email, Adres, User
+from sklepApp.models import Kategoria, Produkt, Email, Adres, User, Koszyk_login
+
 
 #---------------------------------KATEGORIA--------------------------------
 class KategoriaForm(forms.ModelForm):
@@ -81,5 +82,28 @@ class UserSelectForm(forms.Form):
     usery = forms.ModelChoiceField(queryset=User.objects)
 
 #---------------------------------KOSZYK_LOGIN-----------------------------
+from string import ascii_letters
+import datetime
 
+class KoszykInForm(forms.ModelForm):
+    class Meta:
+        model = Koszyk_login
+        # fields = "__all__"
+        exclude = ['nr_zamowienia']
+
+    def fun():
+        def fun():
+            x = datetime.datetime.now()
+            print(x)
+            dz = [str(x.year), str(x.month), str(x.day), ]
+            go = [str(x.hour), str(x.minute), str(x.second)]
+            d = '/'.join(dz)
+            g = ''.join(go)
+            zamowienie = d + "/" + g
+            return zamowienie
+
+    nr_zamowienia = forms.CharField(max_length=15,)
+    # nr_zamowienia = forms.CharField(max_length=15,)
+    user = forms.ModelChoiceField(queryset=User.objects)
+    produkt = forms.ModelChoiceField(queryset=Produkt.objects)
 #---------------------------------KOSZYK_LOGOUT----------------------------

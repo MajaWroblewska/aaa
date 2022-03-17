@@ -16,6 +16,7 @@ from sklepApp.models import Adres
 from sklepApp.forms import AdresForm, AdresSelectForm
 from sklepApp.models import User
 from sklepApp.forms import UserForm, UserSelectForm
+from sklepApp.forms import KoszykInForm
 
 #---------------------------------LOGOWANIE--------------------------------
 class MojeLogwanie(LoginView):
@@ -388,19 +389,109 @@ class UserSelectDeleteView(LoginRequiredMixin, FormView):
 
 #---------------------------------KOSZYK_LOGIN-----------------------------
 from sklepApp.models import Koszyk_login
-
+import datetime
+import random
+from string import ascii_letters
+from django.http import HttpResponse
 
 class Koszyk_loginView(FormView):
     def get(self,request):
-        print(Koszyk_login.objects.all()[0])
-        print(dir(Koszyk_login.objects.all()[1]))
-        print((Koszyk_login.objects.all()[0].id))
-        print((Koszyk_login.objects.all()[0].produkt))
-        print((Koszyk_login.objects.all()[1].produkt))
+        # print(Koszyk_login.objects.all()[0])
+        # print(dir(Koszyk_login.objects.all()[1]))
+        # print((Koszyk_login.objects.all()[0].id))
+        # print((Koszyk_login.objects.all()[0].produkt))
+        # print((Koszyk_login.objects.all()[1].produkt))
+
+        x = datetime.datetime.now()
+        dzien = [str(x.year), str(x.month), str(x.day), ]
+        godz = [str(x.hour), str(x.minute), str(x.second)]
+        d = '/'.join(dzien)
+        g = ''.join(godz)
+        zamowienie = d + "/" + g
+        # print(zamowienie)
+
         return render(request,
                       template_name= 'koszyk_login.html',
-                      context= {'koszyki_in': Koszyk_login.objects.all()}
+                      context= {'koszyki_in': Koszyk_login.objects.all(),
+                                'zamowienie': zamowienie}
                       )
+
+#--------------------
+
+
+class Koszyk_loginCreateView(LoginRequiredMixin, FormView):
+    template_name = 'koszyk_login_create_form.html'
+    form_class = KoszykInForm
+    success_url = reverse_lazy('koszyk_login')
+
+    # def zam(request, s):
+    #     lista = list(ascii_letters) + [str(x) for x in range(10)]
+    #     mix = random.sample(lista, k=8)
+    #     zam = "".join(mix)
+    #
+    #     x = datetime.datetime.now()
+    #     dzien = [str(x.year), str(x.month), str(x.day), ]
+    #     godz = [str(x.hour), str(x.minute), str(x.second)]
+    #     d = '/'.join(dzien)
+    #     g = ''.join(godz)
+    #     zamowienie = d + "/" + g
+    #     print(zamowienie)
+    #
+    #     # s=request.GET.get('')
+    #     return HttpResponse(zamowienie)
+
+    def form_valid(self, form):
+
+        result = super(Koszyk_loginCreateView, self).form_valid(form)
+
+        moj_koszyk = form.cleaned_data
+        Koszyk_login.objects.create(
+            nr_zamowienia=moj_koszyk['nr_zamowienia'],
+            user=moj_koszyk['user'],
+            produkt=moj_koszyk['produkt'],
+        )
+        return result
+
+# class UserUpdateView(LoginRequiredMixin, UpdateView):
+#     template_name = 'user_form.html'
+#     model = User
+#     form_class = UserForm
+#     success_url = reverse_lazy('user')
+#
+# class UserSelectUpdateView(LoginRequiredMixin, FormView):
+#     template_name = 'user_select_form.html'
+#     form_class = UserSelectForm
+#     success_url = reverse_lazy('user')
+#
+#     def form_valid(self, form):
+#         result = super(UserSelectUpdateView, self).form_valid(form)
+#
+#         moj_user = form.cleaned_data
+#         id_user = moj_user['usery'].id
+#         odp = redirect('user_update', pk=id_user)
+#         return odp
+#
+# class UserDeleteView(LoginRequiredMixin, DeleteView):
+#     template_name = 'user_delete_form.html'
+#     model = User
+#     success_url = reverse_lazy('user')
+#
+# class UserSelectDeleteView(LoginRequiredMixin, FormView):
+#     template_name = 'user_select_form.html'
+#     form_class = UserSelectForm
+#     success_url = reverse_lazy('user')
+#
+#     # permission_required = 'sklepApp.delete_user'
+#
+#     def form_valid(self, form):
+#         result = super(UserSelectDeleteView, self).form_valid(form)
+#         moj_user = form.cleaned_data
+#
+#         id_user = moj_user['usery'].id
+#         odp = redirect('user_delete', pk=id_user)
+#
+#         return odp
+
 #---------------------------------KOSZYK_LOGOUT----------------------------
 
 #--------------------------------------------------------------------------

@@ -44,9 +44,31 @@
 <!--                {% static '{{produkt.zdjecie.path|slice:"62:"}}' as m %}-->
 <!--                <td><img src="{{ m }}" alt=bląd={{produkt.zdjecie.path|slice:"62:"}}></td>-->
 
-                <!-- zdjecie 1-->
-                {% static "01.jpg" as zdj %}
-                <td><img src="{{ zdj }}" "style=" height:100px;"> </td>
+<!--                <td>-->
+<!--                        <a href="{{produkt.get_absolute_url">-->
+<!--                            <img src="{% if produkt.zdjecie %}"-->
+<!--                            {{ produkt.zdjecie.url }}-->
+<!--                            {%else%}-->
+<!--                            {% static "img/no_image.png" %}-->
+<!--                            {% endif%}>-->
+<!--                        </a>-->
+<!--                </td>-->
+<!--                <td>-->
+
+<!--                        <img src="{% if produkt.zdjecie %}-->
+<!--                        {% static '{{ produkt.zdjecie.url }}' %}-->
+<!--                        {%else%}-->
+<!--                        {% static "img/no_image.png" %}-->
+<!--                        {% endif%}">-->
+<!--                    </a>-->
+<!--                </td>-->
+
+<!--                {% static '{{produkt.zdjecie.url}}' as m %}-->
+<!--                <td><img src="{{ m }}" alt="{{produkt.zdjecie}}"></td>-->
+
+<!--                 zdjecie 1-->
+<!--                {% static "01.jpg" as zdj %}-->
+<!--                <td><img src="{{ zdj }}" "style=" height:100px;"> </td>-->
 <!--                <td><img src="{{ zdj }}" "style=" width:50px;"> </td>-->
 
                 <!-- zdjecie 2-->
@@ -55,13 +77,13 @@
 
 <!--                <td></td>-->
 <!--                <td><img src="{% static '{{produkt.zdjecie|slice:"62:"  }}' %}" alt={{produkt.zdjecie}}> </td>-->
-<!--                <td><img src="{% static '{{produkt.zdjecie}}' %}" alt={{produkt.zdjecie}}> </td>-->
+                <td><p> src="{% static '{{produkt.zdjecie}}' %}" alt={{produkt.zdjecie}} </p> </td>
 
                 <td> {{ produkt.ilosc_w_magazynie }}</td>
                 <td> {{ produkt.cena }}</td>
 <!--                <td> {{ produkt.data_modyfikacji }}</td>-->
 <!--                <td> {{ produkt.data_dodania }}</td>-->
-                <td> <button type="submit" class="dodaj">dodaj do koszyka "link"</button> </td>
+                <td> <button type="submit" class="dodaj" onclick="window.location.href='http://127.0.0.1:8000/koszykin/'">dodaj do koszyka "link"</button> </td>
 
             </tr>
             {% empty %}
@@ -73,4 +95,4 @@
 
 </body>
 </html>
-C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\zdjecia
+<!--C:\Users\LucWr\Dysk_Google_Maja\PYTHON\_PYTHON_projekty\sklep\zdjecia-->
