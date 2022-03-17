@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+import datetime
 
 # Create your models here.
 
@@ -62,38 +62,23 @@ class User(models.Model):
 
 
 #---------------------------------KOSZYK_LOGIN-----------------------------
-import datetime
 
 class Koszyk_login(models.Model):
-    def fun():
-        x = datetime.datetime.now()
-        print(x)
-        dz = [str(x.year), str(x.month), str(x.day), ]
-        go = [str(x.hour), str(x.minute), str(x.second)]
-        d = '/'.join(dz)
-        g = ''.join(go)
-        zamowienie = d + "/" + g
-        return zamowienie
-
-    nr_zamowienia = models.CharField(max_length=15, default=fun(), null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    produkt = models.ForeignKey(Produkt, on_delete=models.CASCADE)
+    nr_zamowienia= models.CharField(max_length=17)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    produkt= models.ManyToManyField(Produkt)
 
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.id}-{self.nr_zamowienia}'
 
 
 #---------------------------------KOSZYK_LOGOUT----------------------------
 
-
 class Koszyk_logout(models.Model):
-    nr_zamowienia = models.CharField(max_length=9)
-    produkt = models.ManyToManyField(Produkt)
-
+    nr_zamowienia= models.CharField(max_length=17)
+    produkt= models.ManyToManyField(Produkt)
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.nr_zamowienia}'
 
 # -------------------------------------------------------------------------------
 
-class Koszyk(models.Model):
-    pass

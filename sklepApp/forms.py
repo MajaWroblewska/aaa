@@ -102,7 +102,7 @@ class KoszykInForm(forms.ModelForm):
             zamowienie = d + "/" + g
             return zamowienie
 
-    nr_zamowienia = forms.CharField(max_length=15,)
+    nr_zamowienia = forms.CharField(max_length=17,)
     # nr_zamowienia = forms.CharField(max_length=15,)
     user = forms.ModelChoiceField(queryset=User.objects)
     produkt = forms.ModelChoiceField(queryset=Produkt.objects)

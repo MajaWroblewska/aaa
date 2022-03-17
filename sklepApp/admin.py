@@ -28,16 +28,19 @@ class ProduktAdmin(admin.ModelAdmin):
     ordering = ['nazwa','id']
     list_editable = ['cena', 'ilosc_w_magazynie']
 
+
 @admin.register(Adres)
 class AdresAdmin(admin.ModelAdmin):
     list_display = ('id','kraj','miasto','ulica', 'nr_budynku', 'nr_mieszkania')
     list_filter = ('kraj','miasto','ulica', 'nr_budynku', 'nr_mieszkania' )
     ordering = ['kraj', 'miasto','ulica','nr_budynku', 'nr_mieszkania','id']
-#
+
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id','imie','nazwisko','login', 'adres')
     list_filter = ('imie','nazwisko','login', 'adres')
+
 
 @admin.register(Email)
 class EmailAdmin(admin.ModelAdmin):
@@ -45,15 +48,12 @@ class EmailAdmin(admin.ModelAdmin):
     list_filter = ['email']
 
 
-@admin.register(Koszyk_logout)
-class Koszyk_logoutAdmin(admin.ModelAdmin):
-    list_display = ['id', 'nr_zamowienia',]
-
-
 @admin.register(Koszyk_login)
 class Koszyk_loginAdmin(admin.ModelAdmin):
     list_display = ['id', 'nr_zamowienia','user',]
 
 
-
+@admin.register(Koszyk_logout)
+class Koszyk_logoutAdmin(admin.ModelAdmin):
+    list_display = ['id', 'nr_zamowienia',]
 
